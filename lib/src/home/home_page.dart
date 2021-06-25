@@ -2,7 +2,7 @@ import 'package:aula_textfield2/src/shared/widgets/shared_widgets.dart';
 import 'package:aula_textfield2/src/shared/widgets/visible_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -28,6 +28,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool passwordVisible = false;
   bool confirmPasswordVisible = false;
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
