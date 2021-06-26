@@ -1,3 +1,4 @@
+import 'package:aula_textfield2/src/shared/validators/text_validator.dart';
 import 'package:aula_textfield2/src/shared/widgets/shared_widgets.dart';
 import 'package:aula_textfield2/src/shared/widgets/visible_widget.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,8 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController _emailController = TextEditingController();
   MaskedTextController _cpfController =
       MaskedTextController(mask: "000.000.000-00");
+  FocusNode _cpfFocusNode = FocusNode();
+
   TextEditingController _passwordController = TextEditingController();
   FocusNode _passwordFocusNode = FocusNode();
   TextEditingController _confirmPasswordController = TextEditingController();
@@ -46,6 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _passwordController.dispose();
     _passwordFocusNode.dispose();
     _confirmPasswordController.dispose();
+    _cpfFocusNode.dispose();
     super.dispose();
   }
 
@@ -53,88 +57,151 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(
+          "Cadastro Academy",
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0.0,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              CustomTextField(
-                textInputAction: TextInputAction.next,
-                labelText: "Nome",
-                controller: _nameController,
-              ),
-              SizedBox(height: 8.0),
-              CustomTextField(
-                textInputAction: TextInputAction.next,
-                labelText: "Telefone",
-                controller: _phoneController,
-                onEditingComplete: () {
-                  FocusScope.of(context).nextFocus();
-                },
-                inputFormatters: [LengthLimitingTextInputFormatter(14)],
-              ),
-              SizedBox(height: 8.0),
-              CustomTextField(
-                textInputAction: TextInputAction.next,
-                labelText: "Data de Nascimento",
-                controller: _bornDateController,
-                keyboardType: TextInputType.number,
-              ),
-              SizedBox(height: 8.0),
-              CustomTextField(
-                textInputAction: TextInputAction.next,
-                labelText: "E-mail",
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-              ),
-              SizedBox(height: 8.0),
-              CustomTextField(
-                textInputAction: TextInputAction.next,
-                labelText: "CPF",
-                controller: _cpfController,
-                keyboardType: TextInputType.number,
-              ),
-              SizedBox(height: 8.0),
-              CustomTextField(
-                textInputAction: TextInputAction.next,
-                labelText: "Senha",
-                controller: _passwordController,
-                focusNode: _passwordFocusNode,
-                obscureText: passwordVisible,
-                suffixIcon: VisibleWidget(
-                  visible: passwordVisible,
-                  onPressed: () {
-                    setState(() {
-                      passwordVisible = !passwordVisible;
-                    });
-                  },
+          physics: ClampingScrollPhysics(),
+          child: Form(
+            key: _formKey,
+            autovalidateMode: AutovalidateMode.always,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(height: .0),
+                Image.asset(
+                  "assets/images/academy.png",
+                  fit: BoxFit.cover,
                 ),
-              ),
-              SizedBox(height: 8.0),
-              CustomTextField(
-                labelText: "Confirmar Senha",
-                controller: _confirmPasswordController,
-                suffixIcon: VisibleWidget(
-                  visible: confirmPasswordVisible,
-                  onPressed: () {
-                    setState(() {
-                      confirmPasswordVisible = !confirmPasswordVisible;
-                    });
-                  },
+                SizedBox(height: 32.0),
+                CustomTextField(
+                  textInputAction: TextInputAction.next,
+                  labelText: "Nome",
+                  controller: _nameController,
+                  validator: (value) => Validators().validateName(value),
                 ),
-              ),
-              SizedBox(height: 8.0),
-              ElevatedButton(
-                onPressed: () {
-                  FocusScope.of(context).unfocus();
-                },
-                child: Text("Unfocuss"),
-              ),
-            ],
+                SizedBox(height: 8.0),
+                CustomTextField(
+                  textInputAction: TextInputAction.next,
+                  labelText: "Telefone",
+                  controller: _phoneController,
+                  onEditingComplete: () {
+                    FocusScope.of(context).nextFocus();
+                  },
+                  inputFormatters: [LengthLimitingTextInputFormatter(14)],
+                ),
+                SizedBox(height: 8.0),
+                CustomTextField(
+                  textInputAction: TextInputAction.next,
+                  validator: (value) => Validators().validateAge(value),
+                  labelText: "Data de Nascimento",
+                  controller: _bornDateController,
+                  keyboardType: TextInputType.number,
+                ),
+                SizedBox(height: 8.0),
+                CustomTextField(
+                  textInputAction: TextInputAction.next,
+                  labelText: "E-mail",
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
+                ),
+                SizedBox(height: 8.0),
+                CustomTextField(
+                  textInputAction: TextInputAction.next,
+                  labelText: "CPF",
+                  controller: _cpfController,
+                  focusNode: _cpfFocusNode,
+                  keyboardType: TextInputType.number,
+                  validator: (cpf) => Validators().cpfValidator(cpf),
+                ),
+                SizedBox(height: 8.0),
+                CustomTextField(
+                  textInputAction: TextInputAction.next,
+                  labelText: "Senha",
+                  controller: _passwordController,
+                  focusNode: _passwordFocusNode,
+                  obscureText: passwordVisible,
+                  suffixIcon: VisibleWidget(
+                    visible: passwordVisible,
+                    onPressed: () {
+                      setState(() {
+                        passwordVisible = !passwordVisible;
+                      });
+                    },
+                  ),
+                ),
+                SizedBox(height: 8.0),
+                CustomTextField(
+                  labelText: "Confirmar Senha",
+                  controller: _confirmPasswordController,
+                  validator: (value) => Validators().validatePassword(
+                    value,
+                    _passwordController.value.text,
+                  ),
+                  obscureText: confirmPasswordVisible,
+                  suffixIcon: VisibleWidget(
+                    visible: confirmPasswordVisible,
+                    onPressed: () {
+                      setState(() {
+                        confirmPasswordVisible = !confirmPasswordVisible;
+                      });
+                    },
+                  ),
+                ),
+                SizedBox(height: 80.0),
+                Flex(direction: Axis.horizontal, children: [
+                  Expanded(
+                    child: SafeArea(
+                      bottom: true,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          FocusScope.of(context).unfocus();
+                          if (_formKey.currentState.validate()) {
+                            showDialog(
+                                context: context,
+                                builder: (context) => Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Card(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              "Tudo certo por aqui",
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ));
+                          } else {
+                            if (Validators()
+                                    .cpfValidator(_cpfController.value.text) !=
+                                null) {
+                              _cpfFocusNode.requestFocus();
+                            }
+                          }
+                        },
+                        child: Text("Criar conta"),
+                      ),
+                    ),
+                  ),
+                ]),
+              ],
+            ),
           ),
         ),
       ),

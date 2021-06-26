@@ -19,6 +19,7 @@ class CustomTextField extends StatelessWidget {
     this.keyboardType,
     this.textInputAction,
     this.onEditingComplete,
+    this.validator,
   }) : super(key: key);
 
   final String errorMessage;
@@ -28,6 +29,7 @@ class CustomTextField extends StatelessWidget {
   final String helperText;
   final bool obscureText;
   final ValueChanged<String> onChanged;
+  final Function(String) validator;
   final List<TextInputFormatter> inputFormatters;
   final TextEditingController controller;
   final Widget icon;
@@ -40,7 +42,7 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       onChanged: onChanged,
       obscureText: obscureText,
       controller: controller,
@@ -48,6 +50,7 @@ class CustomTextField extends StatelessWidget {
       keyboardType: keyboardType,
       textInputAction: textInputAction,
       onEditingComplete: onEditingComplete,
+      validator: validator,
       decoration: InputDecoration(
         icon: icon,
         suffixIcon: suffixIcon,
@@ -80,10 +83,6 @@ class CustomTextField extends StatelessWidget {
           borderSide: BorderSide(color: Colors.red),
         ),
         errorText: errorMessage,
-        errorStyle: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Colors.orange.shade800,
-        ),
       ),
       inputFormatters: inputFormatters,
     );
