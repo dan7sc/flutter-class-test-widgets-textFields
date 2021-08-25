@@ -5,6 +5,6 @@ void main() {
   testWidgets('HomePage should have title "Cadastro Academy"', (WidgetTester tester) async {
     await tester.pumpWidget(MyApp());
 
-    expect(find.text("Cadastro Academy"), findsNothing);
+    expect(find.text("Cadastro Academy"), findsOneWidget);
   });
 }
