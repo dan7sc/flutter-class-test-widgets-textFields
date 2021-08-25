@@ -12,6 +12,6 @@ void main() {
   testWidgets('HomePage should have Nome', (WidgetTester tester) async {
     await tester.pumpWidget(MyApp());
 
-    expect(find.widgetWithText(CustomTextField, 'Nome'), findsNothing);
+    expect(find.widgetWithText(CustomTextField, 'Nome'), findsOneWidget);
   });
 }
