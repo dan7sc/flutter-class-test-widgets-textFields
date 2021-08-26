@@ -32,4 +32,15 @@ void main() {
 
     expect(find.byKey(Key('raroLogo')), findsNWidgets(1));
   });
+
+  testWidgets('HomePage should have raro logo inside SingleChildScrollView',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(MyApp());
+
+    expect(
+        find.descendant(
+            of: find.byType(SingleChildScrollView),
+            matching: find.byKey(Key('raroLogo'))),
+        findsNWidgets(0));
+  });
 }
