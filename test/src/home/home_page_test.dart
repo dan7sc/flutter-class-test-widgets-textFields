@@ -69,6 +69,6 @@ void main() {
     await tester.tap(createAccountButton);
     await tester.pumpAndSettle();
 
-    expect(find.byKey(Key('formErrorDialog')), findsOneWidget);
+    expect(find.byKey(Key('formErrorDialog')), findsNothing);
   });
 }
