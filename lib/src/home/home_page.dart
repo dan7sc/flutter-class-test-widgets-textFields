@@ -81,6 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Image.asset(
                   "assets/images/academy.png",
                   fit: BoxFit.cover,
+                  key: Key('raroLogo'),
                 ),
                 SizedBox(height: 32.0),
                 CustomTextField(
