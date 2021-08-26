@@ -14,4 +14,13 @@ void main() {
 
     expect(find.widgetWithText(CustomTextField, 'Nome'), findsOneWidget);
   });
+
+  testWidgets('HomePage should have password and confirm password', (WidgetTester tester) async {
+    await tester.pumpWidget(MyApp());
+
+    // Original example: change label 'Confirmar Senha' to 'Senha'
+    // expect(find.widgetWithText(CustomTextField, 'Senha'), findsNWidgets(2));
+
+    expect(find.textContaining('Senha'), findsNWidgets(1));
+  });
 }
