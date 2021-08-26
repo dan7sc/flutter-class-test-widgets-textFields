@@ -43,4 +43,14 @@ void main() {
             matching: find.byKey(Key('raroLogo'))),
         findsNWidgets(1));
   });
+
+  testWidgets('HomePage should have e-mail field',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(MyApp());
+
+    // Original example
+    // expect(find.textContaining('mail'), findsOneWidget);
+
+    expect(find.widgetWithText(CustomTextField, 'E-mail'), findsNothing);
+  });
 }
