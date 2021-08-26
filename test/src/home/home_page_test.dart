@@ -1,5 +1,6 @@
 import 'package:aula_textfield2/main.dart';
 import 'package:aula_textfield2/src/shared/widgets/shared_widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -22,5 +23,11 @@ void main() {
     // expect(find.widgetWithText(CustomTextField, 'Senha'), findsNWidgets(2));
 
     expect(find.textContaining('Senha'), findsNWidgets(2));
+  });
+
+  testWidgets('HomePage should have raro logo', (WidgetTester tester) async {
+    await tester.pumpWidget(MyApp());
+
+    expect(find.byKey(Key('raroLogo')), findsNWidgets(2));
   });
 }
