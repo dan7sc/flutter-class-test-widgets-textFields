@@ -21,6 +21,6 @@ void main() {
     // Original example: change label 'Confirmar Senha' to 'Senha'
     // expect(find.widgetWithText(CustomTextField, 'Senha'), findsNWidgets(2));
 
-    expect(find.textContaining('Senha'), findsNWidgets(1));
+    expect(find.textContaining('Senha'), findsNWidgets(2));
   });
 }
