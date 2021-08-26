@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('HomePage should have title "Cadastro Academy"', (WidgetTester tester) async {
+  testWidgets('HomePage should have title "Cadastro Academy"',
+      (WidgetTester tester) async {
     await tester.pumpWidget(MyApp());
 
     expect(find.text("Cadastro Academy"), findsOneWidget);
@@ -16,7 +17,8 @@ void main() {
     expect(find.widgetWithText(CustomTextField, 'Nome'), findsOneWidget);
   });
 
-  testWidgets('HomePage should have password and confirm password', (WidgetTester tester) async {
+  testWidgets('HomePage should have password and confirm password',
+      (WidgetTester tester) async {
     await tester.pumpWidget(MyApp());
 
     // Original example: change label 'Confirmar Senha' to 'Senha'
@@ -28,6 +30,6 @@ void main() {
   testWidgets('HomePage should have raro logo', (WidgetTester tester) async {
     await tester.pumpWidget(MyApp());
 
-    expect(find.byKey(Key('raroLogo')), findsNWidgets(2));
+    expect(find.byKey(Key('raroLogo')), findsNWidgets(1));
   });
 }
