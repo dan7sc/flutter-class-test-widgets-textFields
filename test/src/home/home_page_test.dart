@@ -51,6 +51,6 @@ void main() {
     // Original example
     // expect(find.textContaining('mail'), findsOneWidget);
 
-    expect(find.widgetWithText(CustomTextField, 'E-mail'), findsNothing);
+    expect(find.widgetWithText(CustomTextField, 'E-mail'), findsOneWidget);
   });
 }
