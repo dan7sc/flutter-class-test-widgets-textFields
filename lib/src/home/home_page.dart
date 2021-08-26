@@ -170,6 +170,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             showDialog(
                                 context: context,
                                 builder: (context) => Column(
+                                  key: Key('formErrorDialog'),
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       crossAxisAlignment:
