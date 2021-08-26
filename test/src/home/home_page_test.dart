@@ -41,6 +41,6 @@ void main() {
         find.descendant(
             of: find.byType(SingleChildScrollView),
             matching: find.byKey(Key('raroLogo'))),
-        findsNWidgets(0));
+        findsNWidgets(1));
   });
 }
